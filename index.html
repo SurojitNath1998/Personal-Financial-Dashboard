@@ -1,0 +1,38 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Expense Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+body{font-family:Arial;margin:20px}
+.cards{display:flex;gap:20px}
+.card{padding:15px;border:1px solid #ccc;border-radius:10px}
+</style>
+</head>
+<body>
+<h1>Expense Dashboard</h1>
+
+<div class="cards">
+<div class="card"><h3>Total Spent</h3><h2>₹ {{ total_spent }}</h2></div>
+<div class="card"><h3>Total Savings</h3><h2>₹ {{ total_savings }}</h2></div>
+<div class="card"><h3>Total Investments</h3><h2>₹ {{ total_investments }}</h2></div>
+</div>
+
+<canvas id="chart"></canvas>
+
+<script>
+const data = {{ chart_data | tojson }};
+new Chart(document.getElementById('chart'), {
+ type:'line',
+ data:{
+  labels:data.months,
+  datasets:[
+   {label:'Spent',data:data.spent},
+   {label:'Savings',data:data.savings}
+  ]
+ }
+});
+</script>
+</body>
+</html>
